@@ -12,8 +12,8 @@ export default {
         host: '127.0.0.1',
         port: 3306,
         username: 'root',
-        password: '123456',
-        database: 'cool',
+        password: '962464lzw',
+        database: 'cool-admin',
         // 自动建表 注意：线上部署的时候不要使用，有可能导致数据丢失
         synchronize: true,
         // 打印日志
@@ -29,7 +29,7 @@ export default {
   },
   cool: {
     // 是否自动导入数据库
-    initDB: true,
+    initDB: false,
     // crud配置
     crud: {
       // 软删除

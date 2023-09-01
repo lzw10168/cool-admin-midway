@@ -77,6 +77,17 @@ export class UserLoginService extends BaseService {
     }
   }
 
+  async account(username, password) {
+    console.log('username, password: ', username, password);
+    let user: any = await this.userInfoEntity.findOneBy({ username });
+    if (!user || !username) {
+      throw new CoolCommException('用户不存在');
+    }
+    if (user.password !== password) {
+      throw new CoolCommException('密码错误');
+    }
+    return this.token({ id: user.id });
+  }
   /**
    * 公众号登录
    * @param code

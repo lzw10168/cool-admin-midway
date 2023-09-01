@@ -10,6 +10,14 @@ export class UserInfoEntity extends BaseEntity {
   @Column({ comment: '登录唯一ID', nullable: true })
   unionid: string;
 
+  // 用户名
+  @Index({ unique: true })
+  @Column({ comment: '用户名', nullable: true })
+  username: string;
+  // 密码
+  @Column({ comment: '密码', nullable: true })
+  password: string;
+
   @Column({ comment: '头像', nullable: true })
   avatarUrl: string;
 
@@ -26,6 +34,6 @@ export class UserInfoEntity extends BaseEntity {
   @Column({ comment: '状态 0-禁用 1-正常', default: 1 })
   status: number;
 
-  @Column({ comment: '登录方式 0-小程序 1-公众号 2-H5', default: 0 })
+  @Column({ comment: '登录方式 0-小程序 1-公众号 2-H5', default: 2 })
   loginType: number;
 }

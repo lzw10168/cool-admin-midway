@@ -13,7 +13,15 @@ import { BaseSysLoginService } from '../../../base/service/sys/login';
  */
 @CoolUrlTag({
   key: TagTypes.IGNORE_TOKEN,
-  value: ['mini', 'mp', 'phone', 'captcha', 'smsCode', 'refreshToken'],
+  value: [
+    'mini',
+    'mp',
+    'phone',
+    'captcha',
+    'smsCode',
+    'refreshToken',
+    'account',
+  ],
 })
 @CoolController()
 export class AppUserLoginController extends BaseController {
@@ -37,6 +45,14 @@ export class AppUserLoginController extends BaseController {
   @Post('/phone', { summary: '手机号登录' })
   async phone(@Body('phone') phone: string, @Body('smsCode') smsCode: string) {
     return this.ok(await this.userLoginService.phone(phone, smsCode));
+  }
+  // 账号密码登录
+  @Post('/account', { summary: '账号密码登录' })
+  async account(
+    @Body('username') username: string,
+    @Body('password') password: string
+  ) {
+    return this.ok(await this.userLoginService.account(username, password));
   }
 
   @Get('/captcha', { summary: '图片验证码' })

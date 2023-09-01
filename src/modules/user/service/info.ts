@@ -41,4 +41,24 @@ export class UserInfoService extends BaseService {
       throw new CoolCommException('更新失败，参数错误或者手机号已存在');
     }
   }
+  // 注册
+  async register(param) {
+    try {
+      param.avatarUrl = await this.file.downAndUpload(
+        param.avatarUrl,
+        uuid() + '.png'
+      );
+      return await this.userInfoEntity.save(param);
+    } catch (err) {
+      throw new CoolCommException('注册失败，参数错误或者手机号, 用户名已存在');
+    }
+  }
+  // 修改密码
+  async updatePassword(id, oldPassword, newPassword) {
+    const info = await this.person(id);
+    if (info.password !== oldPassword) {
+      throw new CoolCommException('旧密码错误');
+    }
+    return await this.userInfoEntity.update({ id }, { password: newPassword });
+  }
 }
