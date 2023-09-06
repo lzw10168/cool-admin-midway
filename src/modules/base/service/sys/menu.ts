@@ -54,11 +54,7 @@ export class BaseSysMenuService extends BaseService {
         }
       });
     }
-    console.log('menus: ', menus);
     return menus;
-
-
-    
   }
 
   /**
