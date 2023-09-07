@@ -30,4 +30,13 @@ export class TableService extends BaseService {
     const find = this.TableEntity.createQueryBuilder();
     return this.entityRenderPage(find, query);
   }
+
+  async getCanChoseTable(restaurantId = null) {
+    // 返回包含restaurantId, 或者restaurantId为空的桌位
+    const data = await this.TableEntity.find();
+    const list = data.filter(
+      row => row.restaurantId === restaurantId || !row.restaurantId
+    );
+    return { list };
+  }
 }

@@ -24,7 +24,7 @@ export class GoodsEntity extends BaseEntity {
   @Column({ comment: 'Main picture', nullable: true })
   mainImage: string;
 
-  @Column({ comment: 'Sample graph', nullable: true })
+  @Column({ comment: 'Sample graph', nullable: true, type: 'longtext' })
   exampleImages: string;
 
   @Column({ comment: 'Stock', default: 0 })

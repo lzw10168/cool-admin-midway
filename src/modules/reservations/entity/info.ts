@@ -27,6 +27,6 @@ export class ReservationsEntity extends BaseEntity {
   numberOfGuests: number;
 
   // ['已预订', '已完成', '已取消']
-  @Column({ comment: '状态 0-已预订 1-已完成 2-已取消', default: 1 })
+  @Column({ comment: '状态 1-已预订 2-已完成 -1-已取消', default: 1 })
   status: number;
 }

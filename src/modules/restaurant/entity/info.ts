@@ -6,8 +6,8 @@ import { TableEntity } from '../../table/entity/info';
  */
 @Entity('restaurant_info')
 export class RestaurantEntity extends BaseEntity {
-  @Index()
-  @Column({ comment: 'Title', length: 50 })
+  @Index({ unique: true })
+  @Column({ comment: 'Title', length: 50, unique: true })
   title: string;
 
   @Column({ comment: 'Desc', nullable: true })
@@ -16,7 +16,7 @@ export class RestaurantEntity extends BaseEntity {
   @Column({ comment: 'Main picture', nullable: true })
   mainImage: string;
 
-  @Column({ comment: 'Sample graph', nullable: true })
+  @Column({ comment: 'Sample graph', nullable: true, type: 'longtext' })
   exampleImages: string;
 
   // 开放时间 周日, 周六, 周五, 周四, 周三, 周二, 周一
