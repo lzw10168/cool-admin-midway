@@ -12,8 +12,8 @@ export class UserInfoEntity extends BaseEntity {
 
   // 用户名
   @Index({ unique: true })
-  @Column({ comment: '用户名', nullable: true })
-  username: string;
+  @Column({ comment: 'Email', nullable: true })
+  email: string;
   // 密码
   @Column({ comment: '密码', nullable: true })
   password: string;

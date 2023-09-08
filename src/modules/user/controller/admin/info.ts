@@ -7,6 +7,7 @@ import { UserInfoEntity } from '../../entity/info';
 @CoolController({
   api: ['add', 'delete', 'update', 'info', 'list', 'page'],
   entity: UserInfoEntity,
+  infoIgnoreProperty: ['password'],
   pageQueryOp: {
     fieldEq: ['status', 'gender', 'loginType'],
     keyWordLikeFields: ['nickName', 'phone'],

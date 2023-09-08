@@ -4,6 +4,7 @@ import { BaseService, CoolCommException } from '@cool-midway/core';
 import { InjectEntityModel } from '@midwayjs/typeorm';
 import { Repository } from 'typeorm';
 import { TableEntity } from '../../table/entity/info';
+import { GoodsEntity } from '../../goods/entity/goods';
 
 /**
  * 商品示例
@@ -15,8 +16,13 @@ export class RestaurantService extends BaseService {
 
   @InjectEntityModel(RestaurantEntity)
   restaurantEntity: Repository<RestaurantEntity>;
+
   @InjectEntityModel(TableEntity)
   tableEntity: Repository<TableEntity>;
+
+  @InjectEntityModel(GoodsEntity)
+  goodsEntity: Repository<GoodsEntity>;
+
   /**
    * 执行sql分页
    */
@@ -85,5 +91,20 @@ export class RestaurantService extends BaseService {
       });
     }
     return await this.restaurantEntity.update({ id }, data);
+  }
+
+  async getRestaurantMenu(restaurantId) {
+    const result = await this.restaurantEntity.findOne({
+      where: { id: restaurantId },
+    });
+    if (!result) {
+      throw new CoolCommException('restaurant not found');
+    }
+    const menuList = result.menu.split(',');
+
+    let goodslist = await this.goodsEntity.find();
+    let goodsList =
+      goodslist.filter(row => menuList.includes(row.id + '')) || [];
+    return goodsList;
   }
 }

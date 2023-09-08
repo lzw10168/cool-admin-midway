@@ -24,7 +24,20 @@ export class RestaurantEntity extends BaseEntity {
   openDay: string;
 
   // 开放时间 17:00, 17:30, 18:00, 18:30, 19:00, 19:30, 20:00, 20:30
-  @Column({ comment: 'Open time', nullable: true })
+  @Column({
+    comment: 'Open time',
+    nullable: true,
+    // enum: {
+    //   1: '17:00',
+    //   2: '17:30',
+    //   3: '18:00',
+    //   4: '18:30',
+    //   5: '19:00',
+    //   6: '19:30',
+    //   7: '20:00',
+    //   8: '20:30',
+    // },
+  })
   openTime: string;
   // location
   @Column({ comment: 'Location', nullable: true })
