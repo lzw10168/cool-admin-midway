@@ -38,26 +38,17 @@ export class UserInfoService extends BaseService {
       }
       return await this.userInfoEntity.update({ id }, param);
     } catch (err) {
-      throw new CoolCommException('更新失败，参数错误或者手机号已存在');
+      throw new CoolCommException('The update failed, the parameter is wrong or the phone number already exists');
     }
   }
   // 注册
-  async register(param) {
-    try {
-      param.avatarUrl = await this.file.downAndUpload(
-        param.avatarUrl,
-        uuid() + '.png'
-      );
-      return await this.userInfoEntity.save(param);
-    } catch (err) {
-      throw new CoolCommException('注册失败，参数错误或者手机号, 用户名已存在');
-    }
-  }
+
   // 修改密码
   async updatePassword(id, oldPassword, newPassword) {
     const info = await this.person(id);
+    console.log('info: ', newPassword);
     if (info.password !== oldPassword) {
-      throw new CoolCommException('旧密码错误');
+      throw new CoolCommException('Old password is wrong');
     }
     return await this.userInfoEntity.update({ id }, { password: newPassword });
   }

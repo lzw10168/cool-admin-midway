@@ -73,18 +73,18 @@ export class UserLoginService extends BaseService {
       }
       return this.token({ id: user.id });
     } else {
-      throw new CoolCommException('验证码错误');
+      throw new CoolCommException('Verification code error');
     }
   }
 
-  async account(username, password) {
-    console.log('username, password: ', username, password);
-    let user: any = await this.userInfoEntity.findOneBy({ username });
-    if (!user || !username) {
-      throw new CoolCommException('用户不存在');
+  async account(email, password) {
+    console.log('email, password: ', email, password);
+    let user: any = await this.userInfoEntity.findOneBy({ email });
+    if (!user || !email) {
+      throw new CoolCommException('User does not exist');
     }
     if (user.password !== password) {
-      throw new CoolCommException('密码错误');
+      throw new CoolCommException('wrong password');
     }
     return this.token({ id: user.id });
   }
@@ -227,5 +227,25 @@ export class UserLoginService extends BaseService {
     return jwt.sign(tokenInfo, secret, {
       expiresIn: isRefresh ? refreshExpire : expire,
     });
+  }
+
+  async register(param) {
+    try {
+      // param.avatarUrl = await this.file.downAndUpload(
+      //   param.avatarUrl,
+      //   uuid() + '.png'
+      // );
+      console.log('param: ', param);
+      // check email 格式
+      const emailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+      if (!emailReg.test(param.email)) {
+        throw new CoolCommException('Email format error');
+      } else {
+        return await this.userInfoEntity.save(param);
+      }
+
+    } catch (err) {
+      throw new CoolCommException('Registration failed, parameters are wrong or the email address already exists');
+    }
   }
 }

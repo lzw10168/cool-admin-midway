@@ -10,6 +10,7 @@ import { UserInfoEntity } from '../../entity/info';
   api: [],
   entity: UserInfoEntity,
 })
+
 export class AppUserInfoController extends BaseController {
   @Inject()
   ctx;
@@ -29,11 +30,7 @@ export class AppUserInfoController extends BaseController {
     );
   }
 
-  // 注册
-  @Post('/register', { summary: '注册' })
-  async register(@Body() body) {
-    return this.ok(await this.userInfoService.register(body));
-  }
+
   // 修改密码
   @Post('/updatePassword', { summary: '修改密码' })
   async updatePassword(

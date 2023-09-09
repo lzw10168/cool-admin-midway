@@ -21,6 +21,7 @@ import { BaseSysLoginService } from '../../../base/service/sys/login';
     'smsCode',
     'refreshToken',
     'account',
+    'register'
   ],
 })
 @CoolController()
@@ -49,10 +50,10 @@ export class AppUserLoginController extends BaseController {
   // 账号密码登录
   @Post('/account', { summary: '账号密码登录' })
   async account(
-    @Body('username') username: string,
+    @Body('email') email: string,
     @Body('password') password: string
   ) {
-    return this.ok(await this.userLoginService.account(username, password));
+    return this.ok(await this.userLoginService.account(email, password));
   }
 
   @Get('/captcha', { summary: '图片验证码' })
@@ -79,5 +80,11 @@ export class AppUserLoginController extends BaseController {
   @Post('/refreshToken', { summary: '刷新token' })
   public async refreshToken(@Body('refreshToken') refreshToken) {
     return this.ok(await this.userLoginService.refreshToken(refreshToken));
+  }
+
+  // 注册
+  @Post('/register', { summary: '注册' })
+  async register(@Body() body) {
+    return this.ok(await this.userLoginService.register(body));
   }
 }
