@@ -90,7 +90,7 @@ export class RestaurantService extends BaseService {
         }
       });
     } else {
-      if (result.table) {
+      if (result && result.table) {
         const tableList = result.table.split(',');
         tableList.forEach(async id => {
           // update table restaurantId
