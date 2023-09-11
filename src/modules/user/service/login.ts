@@ -10,7 +10,18 @@ import { CoolFile } from '@cool-midway/file';
 import { BaseSysLoginService } from '../../base/service/sys/login';
 import { UserSmsService } from './sms';
 import { v1 as uuid } from 'uuid';
+const nodemailer = require('nodemailer');
 
+const transporter = nodemailer.createTransport({
+  service: '163',
+  // host:'', // 配置单位邮箱系统的发件服务器
+  // port: 465, //465
+  secureConnection: true, // 使用SSL方式（安全方式，防止被窃取信息）
+  auth: {
+    user: 'lzw10162@163.com',
+    pass: 'KBZDOEYBUXQNLXUW'
+  }
+});
 /**
  * 登录
  */
@@ -246,6 +257,51 @@ export class UserLoginService extends BaseService {
 
     } catch (err) {
       throw new CoolCommException('Registration failed, parameters are wrong or the email address already exists');
+    }
+  }
+
+  async forgetPassword(param) {
+    try {
+      const { email } = param;
+      const emailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+      if (!emailReg.test(email)) {
+        throw new CoolCommException('Email format error');
+      } else {
+        const user = await this.userInfoEntity.findOneBy({ email });
+          
+        if (user) {
+          const newPassword = Math.random().toString(36).slice(-8);
+          
+          // https://www.w3schools.com/nodejs/nodejs_email.asp
+         const ok =  await new Promise((resolve, reject) => {
+            var mailOptions = {
+              from: 'lzw10162@163.com',
+              to: email,
+              // 新密码
+              subject: 'Your new password',
+              text: 'Your new password is ' + newPassword,
+            };
+            transporter.sendMail(mailOptions, (error, info) =>{
+              console.log('error: ', error);
+              if (error) {
+                reject(false);
+              } else {
+                user.password = newPassword;
+                resolve(true);
+              }
+            });
+          });
+          if (ok) {
+          return await this.userInfoEntity.save(user);
+          } else {
+            throw new CoolCommException('Failed to send email');
+          }
+        } else {
+          throw new CoolCommException('User does not exist');
+        }
+      }
+    } catch (err) {
+      throw new CoolCommException('Failed to send email');
     }
   }
 }

@@ -1,6 +1,6 @@
 import { RestaurantService } from '../../service/info';
 import { RestaurantEntity } from '../../entity/info';
-import { Body, Inject, Post, Provide } from '@midwayjs/decorator';
+import { Body, Get, Inject, Post, Provide, Query } from '@midwayjs/decorator';
 import { CoolController, BaseController } from '@cool-midway/core';
 import { InjectEntityModel } from '@midwayjs/typeorm';
 import { Repository } from 'typeorm';
@@ -30,4 +30,11 @@ export class AppRestaurantController extends BaseController {
   async entityPage(@Body() query) {
     return this.ok(await this.restaurantService.entityPage(query));
   }
+  @Get('/getRestaurantMenu', { summary: '获取商店菜单' })
+  async getRestaurantMenu(@Query('restaurantId') restaurantId: string) {
+    return this.ok(
+      await this.restaurantService.getRestaurantMenu(restaurantId)
+    );
+  }
+  
 }

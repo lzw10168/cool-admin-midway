@@ -89,6 +89,18 @@ export class RestaurantService extends BaseService {
           await that.tableEntity.save(tableResult);
         }
       });
+    } else {
+      if (result.table) {
+        const tableList = result.table.split(',');
+        tableList.forEach(async id => {
+          // update table restaurantId
+          const tableResult = await that.tableEntity.findOneBy({ id: id });
+          if (tableResult) {
+            tableResult.restaurantId = '';
+            await that.tableEntity.save(tableResult);
+          }
+        });
+      }
     }
     return await this.restaurantEntity.update({ id }, data);
   }

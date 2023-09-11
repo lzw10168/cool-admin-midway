@@ -36,4 +36,9 @@ export class UserInfoEntity extends BaseEntity {
 
   @Column({ comment: '登录方式 0-小程序 1-公众号 2-H5', default: 2 })
   loginType: number;
+
+  // 喜欢的菜品
+  @Column({ comment: '喜欢的菜品', nullable: true })
+  likeDish: string;
+
 }

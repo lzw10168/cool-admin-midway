@@ -65,8 +65,12 @@ export class TableService extends BaseService {
     // 添加disabled属性, 如果不相等, 添加disabled属性为false
     const list = allTable.map(row => {
       const tableId = row.id;
-      const isDisabled = allReservations.some(row => +row.tableId == +tableId);
-      return { ...row, isDisabled };
+      const isHas = allReservations.some(row => +row.tableId == +tableId);
+      if (isHas) {
+        const orderInfo = allReservations.find(row => +row.tableId == +tableId);
+        return { ...row, disabled: isHas, orderInfo };
+      }
+      return { ...row, disabled: false };
     });
 
     return list;

@@ -10,7 +10,7 @@ import { UserInfoEntity } from '../../entity/info';
   infoIgnoreProperty: ['password'],
   pageQueryOp: {
     fieldEq: ['status', 'gender', 'loginType'],
-    keyWordLikeFields: ['nickName', 'phone'],
+    keyWordLikeFields: ['nickName', 'phone', 'email'],
   },
 })
 export class AdminUserInfoController extends BaseController {}

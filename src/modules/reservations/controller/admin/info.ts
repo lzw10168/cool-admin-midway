@@ -12,6 +12,16 @@ import { ReservationsEntity } from '../../entity/info';
   entity: ReservationsEntity,
   pageQueryOp: {
     keyWordLikeFields: ['title', 'description'],
+    fieldEq: [{
+      column: 'a.status',
+      requestParam: 'status',
+    }, {
+      column: 'a.restaurantId',
+      requestParam: 'restaurantId',
+    }, {
+      column: 'a.userId',
+      requestParam: 'userId',
+    }],
     select: [
       'a.*',
       'b.title AS restaurantTitle',

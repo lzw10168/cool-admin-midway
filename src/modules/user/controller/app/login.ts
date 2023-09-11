@@ -21,7 +21,8 @@ import { BaseSysLoginService } from '../../../base/service/sys/login';
     'smsCode',
     'refreshToken',
     'account',
-    'register'
+    'register',
+    'forgetPassword'
   ],
 })
 @CoolController()
@@ -86,5 +87,10 @@ export class AppUserLoginController extends BaseController {
   @Post('/register', { summary: '注册' })
   async register(@Body() body) {
     return this.ok(await this.userLoginService.register(body));
+  }
+  // forgetPassword
+  @Post('/forgetPassword', { summary: '忘记密码' })
+  async forgetPassword(@Body() body) {
+    return this.ok(await this.userLoginService.forgetPassword(body));
   }
 }
