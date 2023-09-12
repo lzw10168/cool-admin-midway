@@ -26,6 +26,7 @@ import { ReservationsEntity } from '../../entity/info';
       'a.*',
       'b.title AS restaurantTitle',
       'c.email AS userEmail',
+      'c.phone AS userPhone',
       'c.nickName AS userNickName',
       'd.title AS tableTitle',
     ],
