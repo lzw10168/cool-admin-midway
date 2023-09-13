@@ -34,11 +34,14 @@ export class UserInfoEntity extends BaseEntity {
   @Column({ comment: '状态 0-禁用 1-正常', default: 1 })
   status: number;
 
+  // 积分
+  @Column({ comment: 'Integral', default: 0 })
+  integral: number;
+
   @Column({ comment: '登录方式 0-小程序 1-公众号 2-H5', default: 2 })
   loginType: number;
 
   // 喜欢的菜品
   @Column({ comment: '喜欢的菜品', nullable: true })
   likeDish: string;
-
 }
